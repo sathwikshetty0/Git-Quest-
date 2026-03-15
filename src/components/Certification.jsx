@@ -2,139 +2,358 @@ import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { getLevelInfo } from '../data/gameData';
 
+const styles = `
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --neon: #39ff14;
+    --ink: #0a0b0d;
+    --surface: #111318;
+    --border: rgba(255,255,255,0.07);
+    --text: #f0f0ee;
+    --text-dim: rgba(240,240,238,0.45);
+    --text-muted: rgba(240,240,238,0.22);
+  }
+
+  .cert-page {
+    font-family: 'Figtree', sans-serif;
+    min-height: 100vh;
+    background: var(--ink);
+    color: var(--text);
+    padding: 2.5rem 2rem 5rem;
+  }
+
+  .no-print {
+    display: block;
+  }
+
+  /* ─── Preview Shell ─── */
+  .cert-container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ─── Certificate Card ─── */
+  .cert-card {
+    background: #ffffff;
+    color: #111111;
+    width: 100%;
+    aspect-ratio: 1.414 / 1;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .cert-dotgrid {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, #cccccc 0.5px, transparent 0.5px);
+    background-size: 22px 22px;
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .cert-inner {
+    height: 100%;
+    padding: 4rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+  }
+
+  .cert-border-outer {
+    position: absolute;
+    inset: 2rem;
+    border: 2px solid #111;
+    pointer-events: none;
+  }
+
+  .cert-border-inner {
+    position: absolute;
+    inset: 2.4rem;
+    border: 1px solid var(--neon);
+    pointer-events: none;
+  }
+
+  .cert-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .cert-org-h {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .cert-title-h {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3.5rem;
+    color: #111;
+    line-height: 1;
+    margin: 0;
+  }
+
+  .cert-badge-h {
+    background: #111;
+    color: var(--neon);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    padding: 0.4rem 0.8rem;
+    letter-spacing: 0.1em;
+  }
+
+  .cert-body-h {
+    margin: 2rem 0;
+  }
+
+  .cert-label-h {
+    font-size: 0.9rem;
+    color: #999;
+    margin-bottom: 1rem;
+  }
+
+  .cert-name-h {
+    font-family: 'DM Serif Display', serif;
+    font-size: 4.5rem;
+    color: #111;
+    line-height: 1;
+    margin: 0 0 1.5rem;
+    border-bottom: 3px solid var(--neon);
+    display: inline-block;
+    padding-bottom: 0.5rem;
+  }
+
+  .cert-desc-h {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+    max-width: 800px;
+  }
+
+  .cert-footer-h {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid #eee;
+    padding-top: 2rem;
+  }
+
+  .cert-field-h {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .cert-field-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: #bbb;
+    letter-spacing: 0.1em;
+  }
+
+  .cert-field-value {
+    font-weight: 700;
+    color: #111;
+    font-size: 1rem;
+  }
+
+  .cert-auth-h {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    color: #ccc;
+  }
+
+  /* ─── Actions ─── */
+  .cert-actions-wrapper {
+    margin-top: 3rem;
+    text-align: center;
+  }
+
+  .cert-btn {
+    background: var(--neon);
+    color: #000;
+    border: none;
+    padding: 1rem 3rem;
+    font-family: 'DM Mono', monospace;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(57,255,20,0.3);
+    transition: all 0.2s;
+  }
+  .cert-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 45px rgba(57,255,20,0.5);
+  }
+
+  .cert-back-link {
+    display: block;
+    margin-top: 1.5rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-family: 'DM Mono', monospace;
+  }
+  .cert-back-link:hover {
+    color: var(--text);
+  }
+
+  /* ─── Print Logic ─── */
+  @media print {
+    /* Critical: Hide EVERYTHING in the document */
+    * {
+      visibility: hidden !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* Show ONLY the certificate card and its descendants */
+    #certificate-print-area,
+    #certificate-print-area * {
+      visibility: visible !important;
+    }
+
+    /* Absolute positioning to prevent parent layout shifts/white space */
+    #certificate-print-area {
+      position: fixed !important;
+      left: 0 !important;
+      top: 0 !important;
+      width: 297mm !important;
+      height: 210mm !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: none !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      z-index: 99999 !important;
+    }
+
+    /* Clean up the page background */
+    html, body, #root, .cert-page, .cert-container {
+      background: white !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      height: 100vh !important;
+      overflow: hidden !important;
+    }
+
+    /* Ensure browser headers/footers are avoided */
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
+  }
+`;
+
 export default function Certification({ player, onBack }) {
     const certRef = useRef(null);
     const { current } = getLevelInfo(player.xp);
 
-    const handleDownload = () => {
-        // We'll use a simple print trick or just a message if we can't do full canvas here
-        // But since I want to impress, I'll suggest the browser's print to PDF which is high quality
-        // Or I can try to generate a basic image if I had a library.
-        // For now, I'll provide a high-quality print version.
+    const handleExport = () => {
+        const originalTitle = document.title;
+        document.title = `Gitopia_Certification_${player.username}`;
         window.print();
+        document.title = originalTitle;
     };
 
+    const authId = `HEX_${Math.random().toString(36).substr(2, 8).toUpperCase()}`;
+
     return (
-        <div style={{ padding: '2rem', maxWidth: '1000px', margin: '0 auto' }}>
-            <button
-                onClick={onBack}
-                className="btn mb-6"
-                style={{ background: 'transparent', border: '1px solid #444', color: 'var(--text-dim)' }}
-            >
-                ← BACK TO TERMINAL
-            </button>
+        <div className="cert-page">
+            <style>{styles}</style>
 
-            <div className="glass p-8" style={{ border: '2px solid var(--neon)', position: 'relative', overflow: 'hidden' }}>
-                {/* Background Patterns */}
-                <div style={{
-                    position: 'absolute', inset: 0, opacity: 0.05, pointerEvents: 'none',
-                    backgroundImage: `repeating-linear-gradient(45deg, var(--neon) 0, var(--neon) 1px, transparent 0, transparent 50%)`,
-                    backgroundSize: '10px 10px'
-                }} />
+            <div className="cert-container">
 
-                <div id="certificate-print-zone" ref={certRef} style={{
-                    background: '#0d1117',
-                    border: '10px double var(--neon)',
-                    padding: '4rem',
-                    textAlign: 'center',
-                    position: 'relative',
-                    color: 'var(--text)'
-                }}>
-                    {/* Decorative Corner */}
-                    <div style={{ position: 'absolute', top: 20, left: 20, color: 'var(--neon)', fontSize: '2rem' }}>⚡</div>
-                    <div style={{ position: 'absolute', top: 20, right: 20, color: 'var(--neon)', fontSize: '2rem' }}>⚡</div>
-                    <div style={{ position: 'absolute', bottom: 20, left: 20, color: 'var(--neon)', fontSize: '2rem' }}>⚡</div>
-                    <div style={{ position: 'absolute', bottom: 20, right: 20, color: 'var(--neon)', fontSize: '2rem' }}>⚡</div>
-
-                    <div className="pixel neon-text" style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
-                        CERTIFICATE OF MASTERY
-                    </div>
-                    <div className="dim-text" style={{ fontSize: '0.8rem', letterSpacing: '4px', marginBottom: '3rem' }}>
-                        GITOPIA_PROTOCOL_COMPLETED
-                    </div>
-
-                    <div style={{ marginBottom: '2rem' }}>
-                        <span className="dim-text" style={{ fontSize: '1.1rem' }}>This is to certify that</span>
-                    </div>
-
-                    <div className="pixel" style={{ fontSize: '2.5rem', color: 'var(--text)', marginBottom: '1rem', borderBottom: '2px solid var(--neon)', display: 'inline-block', paddingBottom: '0.5rem' }}>
-                        {player.username.toUpperCase()}
-                    </div>
-
-                    <div style={{ margin: '2rem 0' }}>
-                        <p className="dim-text" style={{ fontSize: '1rem', lineHeight: 1.6 }}>
-                            Has successfully navigated the binary depths of <span className="neon-text">GITOPIA</span>,<br />
-                            mastering the arts of version control, branching strategies, and conflict resolution.
-                        </p>
-                    </div>
-
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '2rem', marginTop: '4rem' }}>
-                        <div style={{ textAlign: 'center' }}>
-                            <div className="blue-text" style={{ fontSize: '1.2rem', fontWeight: 700 }}>{player.xp.toLocaleString()}</div>
-                            <div className="dim-text" style={{ fontSize: '0.6rem' }}>TOTAL_XP_GAINED</div>
-                        </div>
-                        <div style={{ textAlign: 'center' }}>
-                            <div className="neon-text" style={{ fontSize: '1.2rem', fontWeight: 700 }}>{current.title}</div>
-                            <div className="dim-text" style={{ fontSize: '0.6rem' }}>FINAL_RANK</div>
-                        </div>
-                        <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--gold)' }}>{player.badges.length}</div>
-                            <div className="dim-text" style={{ fontSize: '0.6rem' }}>BADGES_COLLECTED</div>
-                        </div>
-                    </div>
-
-                    <div style={{ marginTop: '4rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', padding: '0 2rem' }}>
-                        <div style={{ textAlign: 'left' }}>
-                            <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>GIT_PROFILE</div>
-                            <div style={{ color: 'var(--blue)', fontSize: '0.8rem' }}>{player.gitProfile || 'N/A'}</div>
-                            <div style={{ fontSize: '0.6rem', color: 'var(--text-dim)', marginTop: '4px' }}>{player.email || ''}</div>
-                        </div>
-                        <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>STREAK_STAMINA</div>
-                            <div style={{ color: 'var(--red)', fontSize: '0.8rem' }}>{player.streak} DAYS</div>
-                        </div>
-                        <div style={{ textAlign: 'right' }}>
-                            <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>DATE_ISSUED</div>
-                            <div style={{ fontSize: '0.8rem' }}>{new Date().toLocaleDateString()}</div>
-                        </div>
-                    </div>
-
-                    <div style={{ marginTop: '3rem', borderTop: '1px solid #333', paddingTop: '1rem', display: 'flex', justifyContent: 'center' }}>
-                        <div style={{ padding: '0.5rem 1rem', border: '1px solid var(--neon)', borderRadius: '4px', fontSize: '0.6rem', opacity: 0.6 }}>
-                            AUTH_KEY: {Math.random().toString(36).substr(2, 9).toUpperCase()}
-                        </div>
-                    </div>
-                </div>
-
-                <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-                    <p className="dim-text" style={{ fontSize: '0.8rem', marginBottom: '1.5rem' }}>
-                        "A master of Git is a master of history itself."
-                    </p>
+                {/* Navigation - Hidden in print */}
+                <div className="no-print" style={{ marginBottom: '2rem' }}>
                     <button
-                        className="btn btn-primary"
-                        onClick={handleDownload}
-                        style={{ padding: '1rem 2rem' }}
+                        onClick={onBack}
+                        style={{ background: 'none', border: 'none', color: 'var(--text-dim)', cursor: 'pointer', fontFamily: 'DM Mono', fontSize: '0.8rem' }}
                     >
-                        💾 DOWNLOAD CERTIFICATE (PDF/Print)
+                        ← SYSTEM_EXIT
                     </button>
                 </div>
-            </div>
 
-            <style>{`
-        @media print {
-          body * { visibility: hidden; }
-          #certificate-print-zone, #certificate-print-zone * { visibility: visible; }
-          #certificate-print-zone {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            padding: 2rem;
-          }
-        }
-      `}</style>
+                {/* THE CERTIFICATE */}
+                <div id="certificate-print-area" ref={certRef} className="cert-card">
+                    <div className="cert-dotgrid" />
+                    <div className="cert-border-outer" />
+                    <div className="cert-border-inner" />
+
+                    <div className="cert-inner">
+                        <header className="cert-header">
+                            <div>
+                                <div className="cert-org-h">GITOPIA_ACCREDITATION_AUTHORITY</div>
+                                <h1 className="cert-title-h">Certificate of Mastery</h1>
+                                <div style={{ color: '#888', fontStyle: 'italic', marginTop: '0.5rem' }}>Distributed Version Control Systems</div>
+                            </div>
+                            <div className="cert-badge-h">G_V2.1_STABLE</div>
+                        </header>
+
+                        <main className="cert-body-h">
+                            <div className="cert-label-h">This document certifies that</div>
+                            <h2 className="cert-name-h">{player.username.toUpperCase()}</h2>
+                            <p className="cert-desc-h">
+                                Has successfully navigated the complex protocols of <strong style={{ color: '#111' }}>GITOPIA</strong>,
+                                demonstrating expertise in branch manipulation, atomic commit architecture, resolution of
+                                dynamic merge conflicts, and professional collaborative integration.
+                            </p>
+                        </main>
+
+                        <footer className="cert-footer-h">
+                            <div className="cert-field-h">
+                                <span className="cert-field-label">CREDENTIAL_ID</span>
+                                <span className="cert-field-value">{player.gitProfile || 'GUEST_PROTO_USER'}</span>
+                                <span style={{ fontSize: '0.7rem', color: '#999' }}>{player.email}</span>
+                            </div>
+                            <div className="cert-field-h" style={{ alignItems: 'center', textAlign: 'center' }}>
+                                <span className="cert-field-label">MASTERY_RANK</span>
+                                <span className="cert-field-value" style={{ color: 'var(--neon)' }}>{current.title}</span>
+                                <span style={{ fontSize: '0.7rem', color: '#999' }}>XP: {player.xp.toLocaleString()}</span>
+                            </div>
+                            <div className="cert-field-h" style={{ alignItems: 'flex-end', textAlign: 'right' }}>
+                                <span className="cert-field-label">DATE_OF_ISSUE</span>
+                                <span className="cert-field-value">{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase()}</span>
+                                <span style={{ fontSize: '0.7rem', color: '#999' }}>VERIFIED_CORE_NODE</span>
+                            </div>
+                        </footer>
+
+                        <div className="cert-auth-h">
+                            {authId}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Actions - Hidden in print */}
+                <div className="cert-actions-wrapper no-print">
+                    <p style={{ color: 'var(--text-dim)', fontStyle: 'italic', marginBottom: '2rem' }}>
+                        "The repository of knowledge is the only one that truly matters."
+                    </p>
+                    <button className="cert-btn" onClick={handleExport}>
+                        💾 DOWNLOAD PDF CERTIFICATE
+                    </button>
+                    <div style={{ marginTop: '1.5rem', opacity: 0.4, fontSize: '0.7rem', color: 'var(--text-dim)', fontFamily: 'DM Mono' }}>
+                        FOR BEST OUTPUT: SELECT <span style={{ color: '#fff' }}>LANDSCAPE</span> & <span style={{ color: '#fff' }}>MARGINS: NONE</span>
+                    </div>
+                    <a href="#" onClick={(e) => { e.preventDefault(); onBack(); }} className="cert-back-link">
+                        LOGOUT_SESSION
+                    </a>
+                </div>
+
+            </div>
         </div>
     );
 }
