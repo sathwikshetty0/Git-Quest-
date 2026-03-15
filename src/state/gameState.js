@@ -1,8 +1,8 @@
 // ============================================================
-//  GitQuest — Game State (useReducer)
+//  Gitopia — Game State (useReducer)
 // ============================================================
 export const initialState = {
-    view: 'dashboard',        // 'dashboard' | 'mission' | 'leaderboard' | 'profile'
+    view: 'dashboard',        // 'dashboard' | 'mission' | 'profile' | 'reference'
     activeMissionId: null,
     missionPhase: 'briefing', // 'briefing' | 'challenge' | 'reward'
     activeChallengeIndex: 0,

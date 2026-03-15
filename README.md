@@ -1,15 +1,15 @@
-# ⚡ GitQuest — Learn Git Like a Game
+# ⚡ Gitopia — Learn Git Like a Game
 
 > **A fully interactive, gamified Git learning app built with React + Vite.**
 > Master Git from `git init` to open-source contributions — through missions, a live terminal simulator, and a visual commit graph.
 
-![GitQuest Dashboard](./docs/dashboard.png)
+![Gitopia Dashboard](./docs/dashboard.png)
 
 ---
 
-## 🎮 What is GitQuest?
+## 🎮 What is Gitopia?
 
-GitQuest turns learning Git into a hacker-themed mission game. Instead of reading documentation, you:
+Gitopia turns learning Git into a hacker-themed mission game. Instead of reading documentation, you:
 
 - **Run real Git commands** in a simulated terminal
 - **Watch the commit graph update** in real time
@@ -67,9 +67,10 @@ The aesthetic is inspired by **Hacknet**, **GitHub CLI**, and cyberpunk HUD dash
 - Achievement gallery with locked/earned states
 - Full stats breakdown
 
-### 🏅 Leaderboard
-- 10 mock players with XP bars, badge counts, and level badges
-- Your own row highlighted at the bottom
+### 📡 Git Command Database
+- Searchable catalog of all core Git commands
+- Syntax examples and usage descriptions
+- One-click copy to clipboard
 
 ### 💾 Persistence
 - All progress saved to **localStorage**
@@ -119,8 +120,8 @@ The aesthetic is inspired by **Hacknet**, **GitHub CLI**, and cyberpunk HUD dash
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/GitQuest.git
-cd GitQuest
+git clone https://github.com/yourusername/Gitopia.git
+cd Gitopia
 
 # Install dependencies
 npm install
@@ -143,7 +144,7 @@ npm run preview
 ## 📁 Project Structure
 
 ```
-GitQuest/
+Gitopia/
 ├── index.html                    # Entry HTML, Google Fonts links
 ├── src/
 │   ├── main.jsx                  # React root
@@ -159,9 +160,9 @@ GitQuest/
 │   └── components/
 │       ├── Dashboard.jsx         # Mission map + profile sidebar
 │       ├── MissionScreen.jsx     # 3-phase mission flow + all challenge types
-│       ├── Leaderboard.jsx       # Ranked player table
 │       ├── Navbar.jsx            # Sticky top nav with player info
 │       ├── Profile.jsx           # Player profile, avatar picker, badge gallery
+│       ├── Reference.jsx         # Searchable Git database
 │       └── shared/
 │           ├── Terminal.jsx      # Interactive terminal simulator
 │           ├── CommitGraph.jsx   # React Flow commit graph

@@ -6,7 +6,6 @@ const NAV_ITEMS = [
     { view: 'dashboard', label: 'MAP', icon: '🗺' },
     { view: 'reference', label: 'DATABASE', icon: '📡' },
     { view: 'profile', label: 'PROFILE', icon: '👾' },
-    { view: 'leaderboard', label: 'LEADERBOARD', icon: '🏆' },
 ];
 
 export default function Navbar({ view, player, dispatch }) {
@@ -29,7 +28,7 @@ export default function Navbar({ view, player, dispatch }) {
             >
                 <span style={{ fontSize: '1.4rem' }}>⚡</span>
                 <div className="pixel neon-text" style={{ fontSize: '0.65rem' }}>
-                    GitQuest
+                    Gitopia
                 </div>
                 <span className="badge badge-neon" style={{ fontSize: '0.5rem', padding: '0.15rem 0.5rem' }}>
                     v2.0

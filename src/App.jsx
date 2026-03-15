@@ -4,11 +4,10 @@ import { gameReducer, initialState } from './state/gameState';
 import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
 import MissionScreen from './components/MissionScreen';
-import Leaderboard from './components/Leaderboard';
 import Profile from './components/Profile';
 import Reference from './components/Reference';
 
-const STORAGE_KEY = 'gitquest_v2_state';
+const STORAGE_KEY = 'gitopia_v1_state';
 
 function loadState() {
   try {
@@ -80,11 +79,6 @@ export default function App() {
             </motion.div>
           )}
 
-          {view === 'leaderboard' && (
-            <motion.div key="leaderboard" {...PAGE_TRANSITION}>
-              <Leaderboard player={player} />
-            </motion.div>
-          )}
 
           {view === 'profile' && (
             <motion.div key="profile" {...PAGE_TRANSITION}>
