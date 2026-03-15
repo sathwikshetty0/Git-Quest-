@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard';
 import MissionScreen from './components/MissionScreen';
 import Leaderboard from './components/Leaderboard';
 import Profile from './components/Profile';
+import Reference from './components/Reference';
 
 const STORAGE_KEY = 'gitquest_v2_state';
 
@@ -88,6 +89,12 @@ export default function App() {
           {view === 'profile' && (
             <motion.div key="profile" {...PAGE_TRANSITION}>
               <Profile player={player} dispatch={dispatch} />
+            </motion.div>
+          )}
+
+          {view === 'reference' && (
+            <motion.div key="reference" {...PAGE_TRANSITION}>
+              <Reference />
             </motion.div>
           )}
         </AnimatePresence>

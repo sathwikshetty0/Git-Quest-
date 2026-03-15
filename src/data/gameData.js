@@ -790,3 +790,91 @@ export const MOCK_LEADERBOARD = [
     { rank: 9, avatar: '🌙', username: 'DarkMerge', xp: 3500, badges: 3 },
     { rank: 10, avatar: '🎯', username: 'TargetMain', xp: 2700, badges: 2 },
 ];
+
+export const CHEAT_SHEET = [
+    {
+        category: "Repository Setup & Configuration",
+        commands: [
+            { cmd: "git init", desc: "Initialize a new Git repository in the current directory", examples: ["git init", "git init my-project"] },
+            { cmd: "git clone", desc: "Create a local copy of a remote repository", examples: ["git clone https://github.com/user/repo.git", "git clone git@github.com:user/repo.git"] },
+            { cmd: "git config", desc: "Set configuration options for Git", examples: ["git config --global user.name \"Your Name\"", "git config --global user.email \"your.email@example.com\"", "git config --list"] },
+        ]
+    },
+    {
+        category: "Basic Commands",
+        commands: [
+            { cmd: "git status", desc: "Show the working tree status", examples: ["git status", "git status -s"] },
+            { cmd: "git add", desc: "Add file contents to the staging area", examples: ["git add filename.txt", "git add .", "git add -A"] },
+            { cmd: "git commit", desc: "Record changes to the repository", examples: ["git commit -m \"Commit message\"", "git commit -am \"Add and commit\""] },
+            { cmd: "git log", desc: "Show commit history", examples: ["git log", "git log --oneline", "git log --graph"] },
+            { cmd: "git diff", desc: "Show changes between commits, commit and working tree, etc", examples: ["git diff", "git diff --staged", "git diff HEAD~1"] },
+        ]
+    },
+    {
+        category: "Branching & Merging",
+        commands: [
+            { cmd: "git branch", desc: "List, create, or delete branches", examples: ["git branch", "git branch new-feature", "git branch -d old-branch"] },
+            { cmd: "git checkout", desc: "Switch branches or restore working tree files", examples: ["git checkout main", "git checkout -b new-branch", "git checkout -- filename"] },
+            { cmd: "git switch", desc: "Switch to a different branch", examples: ["git switch main", "git switch -c new-branch"] },
+            { cmd: "git merge", desc: "Join two or more development histories together", examples: ["git merge feature-branch", "git merge --no-ff feature-branch"] },
+            { cmd: "git rebase", desc: "Reapply commits on top of another base tip", examples: ["git rebase main", "git rebase -i HEAD~3"] },
+        ]
+    },
+    {
+        category: "Remote Repositories",
+        commands: [
+            { cmd: "git remote", desc: "Manage set of tracked repositories", examples: ["git remote -v", "git remote add origin url", "git remote remove origin"] },
+            { cmd: "git fetch", desc: "Download objects and refs from another repository", examples: ["git fetch", "git fetch origin", "git fetch --all"] },
+            { cmd: "git pull", desc: "Fetch from and integrate with another repository or local branch", examples: ["git pull", "git pull origin main", "git pull --rebase"] },
+            { cmd: "git push", desc: "Update remote refs along with associated objects", examples: ["git push", "git push origin main", "git push -u origin feature-branch"] },
+        ]
+    },
+    {
+        category: "Inspection & Comparison",
+        commands: [
+            { cmd: "git show", desc: "Show various types of objects (commits, tags, etc.)", examples: ["git show", "git show HEAD", "git show commit-hash"] },
+            { cmd: "git blame", desc: "Show what revision and author last modified each line of a file", examples: ["git blame filename.txt", "git blame -L 10,20 filename.txt"] },
+            { cmd: "git log (Formatting)", desc: "Show commit logs with various formatting options", examples: ["git log --graph --all", "git log --author=\"Name\"", "git log --since=\"2 weeks ago\""] },
+        ]
+    },
+    {
+        category: "Undoing Changes",
+        commands: [
+            { cmd: "git reset", desc: "Reset current HEAD to the specified state", examples: ["git reset HEAD~1", "git reset --hard origin/main", "git reset --soft HEAD~1"] },
+            { cmd: "git revert", desc: "Create new commit that undoes changes from previous commits", examples: ["git revert HEAD", "git revert commit-hash", "git revert HEAD~3..HEAD"] },
+            { cmd: "git clean", desc: "Remove untracked files from the working tree", examples: ["git clean -f", "git clean -fd", "git clean -n"] },
+        ]
+    },
+    {
+        category: "Stashing",
+        commands: [
+            { cmd: "git stash", desc: "Temporarily save changes in a dirty working directory", examples: ["git stash", "git stash save \"message\"", "git stash -u"] },
+            { cmd: "git stash pop", desc: "Apply stashed changes and remove them from stash", examples: ["git stash pop", "git stash pop stash@{2}"] },
+            { cmd: "git stash list", desc: "List all stashes", examples: ["git stash list"] },
+            { cmd: "git stash apply", desc: "Apply stashed changes without removing them from stash", examples: ["git stash apply", "git stash apply stash@{1}"] },
+        ]
+    },
+    {
+        category: "Advanced Operations",
+        commands: [
+            { cmd: "git cherry-pick", desc: "Apply the changes introduced by some existing commits", examples: ["git cherry-pick commit-hash", "git cherry-pick branch-name"] },
+            { cmd: "git reflog", desc: "Show a log of where your HEAD and branch references have been", examples: ["git reflog", "git reflog show main"] },
+            { cmd: "git bisect", desc: "Use binary search to find the commit that introduced a bug", examples: ["git bisect start", "git bisect bad", "git bisect good commit-hash"] },
+            { cmd: "git tag", desc: "Create, list, delete or verify tags", examples: ["git tag", "git tag v1.0", "git tag -a v1.0 -m \"Version 1.0\""] },
+        ]
+    },
+    {
+        category: "File Management",
+        commands: [
+            { cmd: "git rm", desc: "Remove files from the working tree and from the index", examples: ["git rm filename", "git rm --cached filename", "git rm -r directory/"] },
+            { cmd: "git mv", desc: "Move or rename a file, directory, or symlink", examples: ["git mv oldname newname", "git mv file.txt directory/"] },
+        ]
+    },
+    {
+        category: "Repository Maintenance",
+        commands: [
+            { cmd: "git gc", desc: "Cleanup unnecessary files and optimize the local repository", examples: ["git gc", "git gc --aggressive"] },
+            { cmd: "git fsck", desc: "Verify the connectivity and validity of objects in the database", examples: ["git fsck", "git fsck --full"] },
+        ]
+    },
+];
