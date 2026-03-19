@@ -69,6 +69,7 @@ export const MODULES = [
                 'A repository (repo) is Git\'s database for a project.',
                 'git init  ────────►  creates a new repo in any folder.',
                 'git log   ────────►  shows the list of past commits.',
+                'git status ────────► shows the current state of your repository.',
             ],
             ascii: `
    Project Folder
