@@ -18,7 +18,10 @@ const normalizeForMatch = (str) => {
         .trim();
 };
 
-export default function MissionScreen({ activeMissionId, missionPhase, activeChallengeIndex, currentMissionXP, earnedBadge, dispatch }) {
+export default function MissionScreen({ 
+    activeMissionId, missionPhase, activeChallengeIndex, 
+    currentMissionXP, lastXPGain, earnedBadge, dispatch 
+}) {
     const mission = MODULES.find(m => m.id === activeMissionId);
     if (!mission) return null;
 
@@ -80,7 +83,13 @@ export default function MissionScreen({ activeMissionId, missionPhase, activeCha
                         initial={{ opacity: 0, scale: 0.88 }} animate={{ opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 200, damping: 20 } }}
                         exit={{ opacity: 0 }}
                     >
-                        <RewardPhase mission={mission} totalXP={currentMissionXP} earnedBadge={earnedBadge} dispatch={dispatch} />
+                        <RewardPhase 
+                            mission={mission} 
+                            totalXP={currentMissionXP} 
+                            actualGainedXP={lastXPGain} 
+                            earnedBadge={earnedBadge} 
+                            dispatch={dispatch} 
+                        />
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -865,7 +874,7 @@ function HintRow({ hints, hintsShown, setHintsShown }) {
 // ═══════════════════════════════════════════════════
 // PHASE 3: REWARD
 // ═══════════════════════════════════════════════════
-function RewardPhase({ mission, totalXP, earnedBadge, dispatch }) {
+function RewardPhase({ mission, totalXP, actualGainedXP, earnedBadge, dispatch }) {
     const badge = BADGES.find(b => b.id === earnedBadge);
     const [animatedXP, setAnimatedXP] = useState(0);
     const isPerfect = totalXP >= mission.rewardXP;
@@ -917,14 +926,19 @@ function RewardPhase({ mission, totalXP, earnedBadge, dispatch }) {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1, transition: { delay: 0.4 } }}
                 >
-                    +{animatedXP} XP
+                    +{animatedXP === 0 && actualGainedXP === 0 ? 0 : animatedXP} XP
                 </motion.div>
 
                 <div style={{ fontSize: '0.78rem', color: 'var(--text-dim)', marginBottom: '1.5rem' }}>
-                    {isPerfect
-                        ? <span style={{ color: 'var(--neon)' }}>⚡ PERFECT RUN — Full XP awarded!</span>
-                        : `${totalXP} / ${mission.rewardXP} XP earned`
-                    }
+                    {actualGainedXP === 0 && (
+                        <span style={{ color: 'var(--blue)' }}>🛰️ REPLAY: You already earned rewards for this mission!</span>
+                    )}
+                    {actualGainedXP > 0 && isPerfect && (
+                        <span style={{ color: 'var(--neon)' }}>⚡ PERFECT RUN — Full XP awarded!</span>
+                    )}
+                    {actualGainedXP > 0 && !isPerfect && (
+                        `${totalXP} / ${mission.rewardXP} XP earned`
+                    )}
                 </div>
 
                 {badge && (

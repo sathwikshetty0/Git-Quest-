@@ -83,6 +83,7 @@ export default function App() {
                 missionPhase={missionPhase}
                 activeChallengeIndex={activeChallengeIndex}
                 currentMissionXP={currentMissionXP}
+                lastXPGain={state.lastXPGain}
                 earnedBadge={earnedBadge}
                 dispatch={dispatch}
               />
