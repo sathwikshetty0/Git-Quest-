@@ -489,6 +489,7 @@ export const MODULES = [
             {
                 id: 'c2',
                 type: 'scenario',
+                forceMCQ: true,
                 situation: 'Your PR has a requested change from the reviewer. You fix the code locally. What next?',
                 question: 'How do you update the PR with your fix?',
                 options: [
