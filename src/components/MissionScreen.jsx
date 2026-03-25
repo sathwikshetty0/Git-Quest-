@@ -11,8 +11,9 @@ const normalizeForMatch = (str) => {
         .replace(/────────►/g, ' ') // Remove long arrows
         .replace(/→/g, ' ')           // Remove standard arrows
         // Remove dashes/separators that aren't command flags (e.g., "cmd1 - cmd2")
-        .replace(/\s+[-–—]+\s+/g, ' ') 
-        // Remove symbols like ( ) that might be in descriptive text but not crucial for the gist
+        .replace(/\s+[-–—>]+\s+/g, ' ') 
+        .replace(/->/g, ' ')
+        .replace(/=>/g, ' ')        // Remove symbols like ( ) that might be in descriptive text but not crucial for the gist
         .replace(/[()]/g, '')
         .replace(/\s+/g, ' ')         // Collapse all whitespace to single spaces
         .trim();
@@ -341,7 +342,7 @@ function MCQChallenge({ challenge, onComplete }) {
     const [hintsShown, setHintsShown] = useState(0);
     const [wrongCount, setWrongCount] = useState(0);
 
-    const isCommand = challenge.options[challenge.correct].trim().toLowerCase().startsWith('git');
+    const isCommand = !challenge.forceMCQ && challenge.options[challenge.correct].trim().toLowerCase().startsWith('git');
 
     const handleSubmit = (clickedIndex = null) => {
         const val = clickedIndex !== null ? clickedIndex : selected;
