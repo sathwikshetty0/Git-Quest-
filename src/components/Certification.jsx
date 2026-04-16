@@ -331,10 +331,11 @@ export default function Certification({ player, dispatch, onBack }) {
   
   const [showVerify, setShowVerify] = useState(!player.hasClaimedCertificate);
   const [form, setForm] = useState({
-    username: player.username || '',
+    username: '',
     email: player.email || '',
     gitProfile: player.gitProfile || ''
   });
+  const [nameError, setNameError] = useState(false);
 
   const handleExport = () => {
     const originalTitle = document.title;
@@ -346,13 +347,17 @@ export default function Certification({ player, dispatch, onBack }) {
   const authId = `HEX_${Math.random().toString(36).substr(2, 8).toUpperCase()}`;
 
   const handleVerify = () => {
-    if (!form.username || !form.email) {
-      alert("Name and Email are required for certification.");
+    if (!form.username.trim()) {
+      setNameError(true);
+      return;
+    }
+    if (!form.email) {
+      alert("Email is required for certification.");
       return;
     }
     dispatch({ 
       type: 'UPDATE_PLAYER_INFO', 
-      payload: { ...form, hasClaimedCertificate: true } 
+      payload: { ...form, username: form.username.trim(), hasClaimedCertificate: true } 
     });
     setShowVerify(false);
   };
@@ -404,13 +409,20 @@ export default function Certification({ player, dispatch, onBack }) {
             </p>
 
             <div className="verify-group">
-              <label className="verify-label">Full Name (for certificate)</label>
+              <label className="verify-label">Full Name (for certificate) <span style={{ color: '#ff4444' }}>*</span></label>
               <input 
                 className="verify-input"
                 value={form.username}
-                onChange={e => setForm({...form, username: e.target.value})}
-                placeholder="Enter your legal/display name"
+                onChange={e => { setNameError(false); setForm({...form, username: e.target.value}); }}
+                placeholder="Enter your name"
+                style={nameError ? { borderColor: '#ff4444', background: 'rgba(255,68,68,0.08)' } : {}}
+                autoFocus
               />
+              {nameError && (
+                <p style={{ color: '#ff4444', fontSize: '0.8rem', marginTop: '0.4rem', fontFamily: 'DM Mono, monospace' }}>
+                  NAME_REQUIRED — enter your name to generate the certificate.
+                </p>
+              )}
             </div>
 
             <div className="verify-group">

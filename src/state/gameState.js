@@ -7,7 +7,7 @@ export const initialState = {
     missionPhase: 'briefing', // 'briefing' | 'challenge' | 'reward'
     activeChallengeIndex: 0,
     player: {
-        username: 'Hacker',
+        username: '',
         avatar: '👾',
         xp: 0,
         streak: 3,
