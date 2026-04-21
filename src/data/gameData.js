@@ -65,10 +65,12 @@ export const MODULES = [
             title: 'MISSION BRIEFING: Git Foundations',
             lines: [
                 'Git is a distributed version control system.',
+                'WHY GIT? It prevents losing work, enables team collaboration, and lets you travel back in time.',
+                'GIT vs GITHUB: Git is the local tool (engine). GitHub is the cloud platform (garage).',
                 'It tracks every change to your code over time.',
                 'A repository (repo) is Git\'s database for a project.',
-                'git init   ──►  creates a new repo in any folder.',
-                'git clone  ──►  copies an existing repo from a URL.',
+                'git init   ──►  creates a new local (Git) repo in any folder.',
+                'git clone  ──►  copies an existing cloud (GitHub) repo to your computer.',
                 'git log    ──►  shows the list of past commits.',
                 'git status ──►  shows the current state of your repository.',
             ],
@@ -87,6 +89,7 @@ export const MODULES = [
             {
                 id: 'c1',
                 type: 'terminal',
+                context: 'Git operates locally on your machine. To start tracking a project, you need to set up a Git database inside your project folder.',
                 instruction: 'Initialize a new Git repository in your project folder.',
                 prompt: 'project/',
                 expected: ['git init'],
@@ -97,6 +100,7 @@ export const MODULES = [
             {
                 id: 'c2',
                 type: 'multiple_choice',
+                context: 'The status command is your best friend. It shows what is tracked, staged, or modified.',
                 question: 'What does `git status` show you?',
                 options: [
                     'The list of all commits ever made',
@@ -111,6 +115,7 @@ export const MODULES = [
             {
                 id: 'c3',
                 type: 'multiple_choice',
+                context: 'Git saves snapshots as a timeline. To view this timeline, you use the log command.',
                 question: 'Which command shows the history of commits?',
                 options: ['git history', 'git show', 'git log', 'git trace'],
                 correct: 2,
@@ -120,6 +125,7 @@ export const MODULES = [
             {
                 id: 'c4',
                 type: 'multiple_choice',
+                context: 'GitHub hosts repositories in the cloud. You bring them to your local Git using the clone command.',
                 question: 'Which command is used to copy an existing repository to your computer?',
                 options: ['git init', 'git copy', 'git clone', 'git download'],
                 correct: 2,
@@ -146,6 +152,7 @@ export const MODULES = [
             title: 'MISSION BRIEFING: Staging & Commits',
             lines: [
                 'The staging area is a checkpoint before committing.',
+                'GIT vs GITHUB: Staging and Commit happen purely in Git on your local machine.',
                 'git add .             →  stages ALL changed files at once.',
                 '  ↳ The dot (.) represents your current directory.',
                 'git commit -m "msg"   →  saves a permanent snapshot.',
@@ -166,6 +173,7 @@ export const MODULES = [
             {
                 id: 'c1',
                 type: 'order',
+                context: 'Git (local) handles adding and committing. GitHub (cloud) handles the push.',
                 question: 'Put these Git commands in the correct workflow order:',
                 items: ['git commit -m "feat"', 'git add index.js', 'git status', 'git push origin main'],
                 correct: ['git status', 'git add index.js', 'git commit -m "feat"', 'git push origin main'],
@@ -175,6 +183,7 @@ export const MODULES = [
             {
                 id: 'c2',
                 type: 'terminal',
+                context: 'The dot (.) represents all current and nested files. It stages everything.',
                 instruction: 'Stage ALL changed files for commit.',
                 prompt: 'project/',
                 expected: ['git add .', 'git add -A'],
@@ -185,6 +194,7 @@ export const MODULES = [
             {
                 id: 'c3',
                 type: 'fix_command',
+                context: 'Commits require a message string passed with the -m flag.',
                 question: 'Spot the bug in this commit command:',
                 broken: 'git comit -m "fix bug"',
                 correct: 'git commit -m "fix bug"',
@@ -221,6 +231,7 @@ export const MODULES = [
             title: 'MISSION BRIEFING: Branching',
             lines: [
                 'A branch is a pointer to a specific commit.',
+                'GIT vs GITHUB: Branches exist locally in Git. You can later push them to GitHub.',
                 'main is the default branch (or master in older repos).',
                 'git branch loginpage   ────────►  creates a new branch.',
                 'git switch loginpage   ────────►  moves HEAD to that branch.',
@@ -238,6 +249,7 @@ export const MODULES = [
             {
                 id: 'c1',
                 type: 'terminal',
+                context: 'A branch is just a lightweight, movable pointer to a commit. Creating it is instant.',
                 instruction: 'Create a new branch called "loginpage".',
                 prompt: 'project/ (main)',
                 expected: ['git branch loginpage', 'git checkout -b loginpage', 'git switch -c loginpage'],
@@ -248,6 +260,7 @@ export const MODULES = [
             {
                 id: 'c2',
                 type: 'terminal',
+                context: 'To work on a newly created branch, you must switch your HEAD pointer to it.',
                 instruction: 'Switch to the "loginpage" branch.',
                 prompt: 'project/ (main)',
                 expected: ['git switch loginpage', 'git checkout loginpage'],
@@ -258,6 +271,7 @@ export const MODULES = [
             {
                 id: 'c3',
                 type: 'multiple_choice',
+                context: 'Git uses a special pointer called HEAD. It points to your current branch or commit.',
                 question: 'What does HEAD point to in Git?',
                 options: [
                     'The first commit ever made',
@@ -272,6 +286,7 @@ export const MODULES = [
             {
                 id: 'c4',
                 type: 'multiple_choice',
+                context: 'Housekeeping is important. Merged branches should be deleted to keep your workspace clean.',
                 question: 'How do you delete a branch that has been merged?',
                 options: ['git branch --remove', 'git branch -d loginpage', 'git delete loginpage', 'git rm -branch loginpage'],
                 correct: 1,
@@ -312,6 +327,7 @@ export const MODULES = [
             title: 'MISSION BRIEFING: Merging',
             lines: [
                 'Merging combines two branch histories.',
+                'GIT vs GITHUB: Merging here is done via CLI using Git. On GitHub, this is typically done by clicking \'Merge Pull Request\'.',
                 'git merge loginpage  ────────►  applies loginpage changes onto current branch.',
                 'Fast-forward merge: no divergence, pointer just moves.',
                 'Three-way merge: creates a new merge commit.',
@@ -328,6 +344,7 @@ export const MODULES = [
                 id: 'c1',
                 type: 'scenario',
                 forceMCQ: true,
+                context: 'Git merges the specified branch INTO your current branch. You cannot merge from afar.',
                 situation: 'You have finished work on "loginpage" branch. You want to bring those changes into main.',
                 question: 'What is the CORRECT sequence of commands?',
                 options: [
@@ -343,6 +360,7 @@ export const MODULES = [
             {
                 id: 'c2',
                 type: 'multiple_choice',
+                context: 'If your current branch hasn\'t diverged from the branch you are merging, Git just moves the pointer natively.',
                 question: 'What is a "fast-forward" merge?',
                 options: [
                     'A merge that skips some commits',
@@ -357,6 +375,7 @@ export const MODULES = [
             {
                 id: 'c3',
                 type: 'terminal',
+                context: 'The default behavior is to perform a fast-forward merge if possible, or a 3-way merge if branches diverged.',
                 instruction: 'You are on main. Merge the branch called "loginpage".',
                 prompt: 'project/ (main)',
                 expected: ['git merge loginpage', 'git merge loginpage --no-ff'],
@@ -402,8 +421,9 @@ export const MODULES = [
         briefing: {
             title: 'MISSION BRIEFING: Remotes',
             lines: [
-                'A remote is a version of your repo hosted on the internet.',
-                'GitHub, GitLab, and Bitbucket host remotes.',
+                'GIT vs GITHUB: A remote is exactly where GitHub comes in.',
+                'It is a version of your repo hosted on the internet.',
+                'GitHub, GitLab, and Bitbucket are platforms that host these remotes.',
                 'git remote add origin <url>  →  links local to remote.',
                 'git push origin main  →  uploads commits to remote server.',
                 '  ↳ push: upload | origin: remote server | main: branch name',
@@ -419,6 +439,7 @@ export const MODULES = [
             {
                 id: 'c1',
                 type: 'multiple_choice',
+                context: 'Sometimes you just want to see what others did without ruining your own code. That is what fetch is for.',
                 question: 'What does `git fetch` do (vs `git pull`)?',
                 options: [
                     'Fetch downloads remote changes but does NOT merge them',
@@ -433,6 +454,7 @@ export const MODULES = [
             {
                 id: 'c2',
                 type: 'terminal',
+                context: 'Pushing takes your local Git commits and sends them to the remote GitHub repository.',
                 instruction: 'Push your local "main" branch to the remote named "origin".',
                 prompt: 'project/ (main)',
                 expected: ['git push origin main', 'git push'],
@@ -443,6 +465,7 @@ export const MODULES = [
             {
                 id: 'c3',
                 type: 'scenario',
+                context: 'Pulling is a combination of two operations: fetching the remote info, and merging it instantly.',
                 situation: 'A colleague pushed commits to main on GitHub. You want those changes locally.',
                 question: 'Which command gets the latest remote changes AND merges them?',
                 options: ['git fetch origin main', 'git pull origin main', 'git sync', 'git download main'],
@@ -469,8 +492,9 @@ export const MODULES = [
             lines: [
                 'A Pull Request (PR) proposes your branch changes to be merged.',
                 'Team members review your code before it lands in main.',
-                'PRs are a GitHub/GitLab concept, not core Git.',
-                'Workflow: branch  ────────►  commit  ────────►  push  ────────►  open PR  ────────►  review  ────────►  merge.',
+                'GIT vs GITHUB: PRs are a GitHub/GitLab feature, NOT core Git!',
+                'Git handles the branch, commit, and merge. GitHub handles the review discussion.',
+                'Workflow: branch  ────────►  commit  ────────►  push  ────────►  open PR (GitHub)  ────────►  review  ────────►  merge.',
                 'Good PRs have a clear title, description, and small diff.',
             ],
             ascii: `
@@ -481,6 +505,7 @@ export const MODULES = [
             {
                 id: 'c1',
                 type: 'order',
+                context: 'PRs merge the world of Git CLI and GitHub web interface. Branch locally, PR on the cloud.',
                 question: 'Arrange the Pull Request workflow in order:',
                 items: ['Open PR on GitHub', 'git push origin loginpage', 'git commit -m "feat: add login"', 'git checkout -b loginpage', 'Team reviews & approves', 'PR merged to main'],
                 correct: ['git checkout -b loginpage', 'git commit -m "feat: add login"', 'git push origin loginpage', 'Open PR on GitHub', 'Team reviews & approves', 'PR merged to main'],
@@ -491,6 +516,7 @@ export const MODULES = [
                 id: 'c2',
                 type: 'scenario',
                 forceMCQ: true,
+                context: 'A PR is tied to a specific branch. Any new commits pushed to that branch automatically appear in the PR.',
                 situation: 'Your PR has a requested change from the reviewer. You fix the code locally. What next?',
                 question: 'How do you update the PR with your fix?',
                 options: [
@@ -506,6 +532,7 @@ export const MODULES = [
             {
                 id: 'c3',
                 type: 'multiple_choice',
+                context: 'Draft PRs allow you to run automated tests and get early feedback before the code is ready to merge.',
                 question: 'What is a "draft PR"?',
                 options: [
                     'A PR with no commits',
@@ -535,6 +562,7 @@ export const MODULES = [
             title: 'MISSION BRIEFING: Conflict Resolution',
             lines: [
                 'A conflict happens when two branches changed the same line.',
+                'GIT vs GITHUB: Conflicts can happen locally during a \'git merge\', or on GitHub when trying to merge a Pull Request.',
                 'Git marks the conflicting section with <<<, ===, >>> markers.',
                 'You manually edit the file to choose what to keep.',
                 'Then: git add <file>  ────────►  git commit to complete the merge.',
@@ -552,6 +580,7 @@ export const MODULES = [
             {
                 id: 'c1',
                 type: 'fix_conflict',
+                context: 'Git inserts conflict markers (<<<, ===, >>>). Your job is to delete them and keep the final intended code.',
                 description: 'A merge conflict occurred. Resolve it by keeping the LOGINPAGE branch version.',
                 conflictText: `<<<<<<< HEAD
 console.log("Hello from main")
@@ -566,6 +595,7 @@ console.log("Hello from loginpage")
                 id: 'c2',
                 type: 'multiple_choice',
                 forceMCQ: true,
+                context: 'You must tell Git that the conflict is solved. You do this by staging the resolved file.',
                 question: 'After manually resolving a conflict in a file, what is the next step?',
                 options: [
                     'git merge --done',
@@ -580,6 +610,7 @@ console.log("Hello from loginpage")
             {
                 id: 'c3',
                 type: 'multiple_choice',
+                context: 'If a merge gets too messy, you can always bail out and return your repo to how it was before.',
                 question: 'Which command cancels an in-progress merge?',
                 options: ['git merge --stop', 'git merge --abort', 'git reset --hard', 'git undo-merge'],
                 correct: 1,
@@ -604,6 +635,7 @@ console.log("Hello from loginpage")
             title: 'MISSION BRIEFING: Rebasing',
             lines: [
                 'Rebase moves your branch commits to start from a new base.',
+                'GIT vs GITHUB: Never rebase a branch that you have already pushed to GitHub and others are using!',
                 'It creates a linear history — no merge commits.',
                 'git rebase main  ────────►  replays your commits on top of main.',
                 'git rebase -i  ────────►  interactive rebase (squash, edit, reorder).',
@@ -619,6 +651,7 @@ console.log("Hello from loginpage")
             {
                 id: 'c1',
                 type: 'terminal',
+                context: 'Rebasing literally changes the base of your branch to a new commit, effectively rewriting history.',
                 instruction: 'You are on "loginpage" branch. Rebase it on top of main.',
                 prompt: 'project/ (loginpage)',
                 expected: ['git rebase main'],
@@ -629,6 +662,7 @@ console.log("Hello from loginpage")
             {
                 id: 'c2',
                 type: 'multiple_choice',
+                context: 'A linear history makes it much easier to track down bugs later.',
                 question: 'What is the main advantage of rebasing over merging?',
                 options: [
                     'Rebase is always faster',
@@ -643,6 +677,7 @@ console.log("Hello from loginpage")
             {
                 id: 'c3',
                 type: 'scenario',
+                context: 'Rebase conflicts happen commit-by-commit. You resolve them one at a time.',
                 situation: 'You ran `git rebase main` and a conflict appeared. How do you continue?',
                 question: 'After resolving the conflict and staging the file:',
                 options: [
@@ -688,6 +723,7 @@ console.log("Hello from loginpage")
             {
                 id: 'c1',
                 type: 'multiple_choice',
+                context: 'GitHub Flow is designed to be simple and robust: everything revolves around the main branch.',
                 question: 'In GitHub Flow, what branch do you always branch off from?',
                 options: ['develop', 'release', 'main', 'staging'],
                 correct: 2,
@@ -697,6 +733,7 @@ console.log("Hello from loginpage")
             {
                 id: 'c2',
                 type: 'scenario',
+                context: 'Interactive rebasing lets you squash, reorder, or edit commits. It is the ultimate Git history editor.',
                 situation: 'Your loginpage branch has 8 messy commits like "fix", "fix again", "oops". Other devs will find these noisy.',
                 question: 'What should you do before opening the PR?',
                 options: [
@@ -712,6 +749,7 @@ console.log("Hello from loginpage")
             {
                 id: 'c3',
                 type: 'multiple_choice',
+                context: 'Standardizing your commit messages makes reading the project history much easier for your team.',
                 question: 'What does a conventional commit message prefix "fix:" indicate?',
                 options: ['A new feature', 'A bug fix', 'Documentation update', 'Test additions'],
                 correct: 1,
@@ -751,6 +789,7 @@ console.log("Hello from loginpage")
             {
                 id: 'c1',
                 type: 'order',
+                context: 'Forking copies the repo to your GitHub account. Then you use generic Git commands locally.',
                 question: 'Arrange the open-source contribution workflow:',
                 items: [
                     'git push origin my-fix',
@@ -775,6 +814,7 @@ console.log("Hello from loginpage")
                 id: 'c2',
                 type: 'multiple_choice',
                 forceMCQ: true,
+                context: 'Upstream refers to the original repository. Your fork does not automatically stay up-to-date with it.',
                 question: 'You want to keep your fork in sync with the upstream repo. What do you add?',
                 options: [
                     'git remote add origin <upstream-url>',
@@ -789,6 +829,7 @@ console.log("Hello from loginpage")
             {
                 id: 'c3',
                 type: 'scenario',
+                context: 'Signing commits proves your identity cryptographically. Many major open source projects require it.',
                 situation: 'The upstream project\'s CONTRIBUTING.md says: "Sign your commits". How?',
                 question: 'Which Git flag signs a commit with your GPG key?',
                 options: ['git commit --sign', 'git commit -S', 'git commit --gpg', 'git sign -m "msg"'],
