@@ -82,7 +82,7 @@ export default function Reference() {
             <section>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
                     <div>
-                        <h1 className="pixel neon-text" style={{ fontSize: '1.35rem', margin: 0 }}>GIT_REFERENCE</h1>
+                        <h1 className="pixel neon-text" style={{ fontSize: '1.35rem', margin: 0 }}>GIT_CHEATCODES</h1>
                         <p className="dim-text" style={{ fontSize: '0.9rem', marginTop: '0.5rem' }}>
                             Showing <span className="neon-text">{filteredData.reduce((acc, c) => acc + c.commands.length, 0)}</span> commands in <span className="blue-text">{activeCategory}</span>
                         </p>

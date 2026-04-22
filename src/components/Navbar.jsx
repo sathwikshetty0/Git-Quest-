@@ -4,7 +4,7 @@ import { XPBar, LevelBadge } from './shared/XPBar';
 
 const NAV_ITEMS = [
     { view: 'dashboard', label: 'MAP', icon: '🗺' },
-    { view: 'reference', label: 'DATABASE', icon: '📡' },
+    { view: 'reference', label: 'CHEATCODES', icon: '📡' },
     { view: 'profile', label: 'PROFILE', icon: '👾' },
 ];
 

@@ -68,7 +68,7 @@ export const MODULES = [
                 'WHY GIT? It prevents losing work, enables team collaboration, and lets you travel back in time.',
                 'GIT vs GITHUB: Git is the local tool (engine). GitHub is the cloud platform (garage).',
                 'It tracks every change to your code over time.',
-                'A repository (repo) is Git\'s database for a project.',
+                'A repository (repo) is Git\'s cheatcode directory for a project.',
                 'git init   ──►  creates a new local (Git) repo in any folder.',
                 'git clone  ──►  copies an existing cloud (GitHub) repo to your computer.',
                 'git log    ──►  shows the list of past commits.',
@@ -89,7 +89,7 @@ export const MODULES = [
             {
                 id: 'c1',
                 type: 'terminal',
-                context: 'Git operates locally on your machine. To start tracking a project, you need to set up a Git database inside your project folder.',
+                context: 'Git operates locally on your machine. To start tracking a project, you need to set up a Git cheatcode repository inside your project folder.',
                 instruction: 'Initialize a new Git repository in your project folder.',
                 prompt: 'project/',
                 expected: ['git init'],

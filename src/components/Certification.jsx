@@ -418,7 +418,7 @@ export default function Certification({ player, dispatch, onBack }) {
             <h2 className="verify-title">Verify Credentials</h2>
             <p className="verify-subtitle">
               Please finalize your professional details. This information will be permanently 
-              encoded into your Certificate of Mastery and recorded in our authority database.
+              encoded into your Certificate of Mastery and recorded in our authority cheatcodes registry.
             </p>
 
             <div className="verify-group">
@@ -530,7 +530,7 @@ export default function Certification({ player, dispatch, onBack }) {
                 <img src="/inunity-logo.png" alt="Inunity Logo" className="cert-logo" />
                 <div className="cert-org-h">GITOPIA_ACCREDITATION_AUTHORITY</div>
                 <h1 className="cert-title-h">Certificate of Mastery</h1>
-                <div style={{ color: '#888', fontStyle: 'italic', marginTop: '0.5rem' }}>Distributed Version Control Systems</div>
+                <div style={{ color: '#888', fontStyle: 'italic', marginTop: '0.5rem' }}>Full Stack Version Control Mastery</div>
               </div>
             </header>
 
@@ -541,6 +541,7 @@ export default function Certification({ player, dispatch, onBack }) {
                 Has successfully navigated the complex protocols of <strong style={{ color: '#111' }}>GITOPIA</strong>,
                 demonstrating expertise in branch manipulation, atomic commit architecture, resolution of
                 dynamic merge conflicts, and professional collaborative integration.
+                Total mastery points achieved: <strong>{player.xp}</strong> out of <strong>2450</strong> possible points.
               </p>
             </main>
 
