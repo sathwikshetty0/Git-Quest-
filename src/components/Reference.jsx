@@ -36,60 +36,91 @@ export default function Reference() {
         }}>
 
             {/* LEFT SIDEBAR: Categories */}
-            <aside style={{ position: 'sticky', top: '7rem' }}>
-                <div className="pixel neon-text mb-6" style={{ fontSize: '0.72rem', letterSpacing: '1px' }}>
-                    ◈ SYSTEM_CATALOG
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                    {categories.map(cat => (
-                        <button
-                            key={cat}
-                            onClick={() => setActiveCategory(cat)}
-                            style={{
-                                background: activeCategory === cat ? 'var(--neon-dim)' : 'transparent',
-                                border: `1px solid ${activeCategory === cat ? 'var(--neon)' : 'transparent'}`,
-                                borderRadius: '8px',
-                                padding: '0.75rem 1rem',
-                                textAlign: 'left',
-                                fontSize: '0.82rem',
-                                color: activeCategory === cat ? 'var(--neon)' : 'var(--text-dim)',
-                                cursor: 'pointer',
-                                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                                fontFamily: 'var(--font-code)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '0.75rem'
-                            }}
-                        >
-                            <span style={{ fontSize: '1rem', opacity: activeCategory === cat ? 1 : 0.4 }}>
-                                {cat === 'All' ? '⚡' : '📂'}
-                            </span>
-                            <span style={{ flex: 1 }}>{cat}</span>
-                            {activeCategory === cat && (
-                                <motion.span layoutId="active-dot" style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--neon)', boxShadow: 'var(--glow-neon)' }} />
-                            )}
-                        </button>
-                    ))}
-                </div>
+            <aside style={{ position: 'sticky', top: '5rem' }}>
+                <motion.div
+                    className="glass p-4"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    style={{ marginBottom: '1rem', position: 'relative', overflow: 'hidden' }}
+                >
+                    {/* Accent line */}
+                    <div style={{
+                        position: 'absolute', top: 0, left: 0, bottom: 0, width: '2px',
+                        background: 'linear-gradient(to bottom, var(--neon), var(--blue), transparent)',
+                        opacity: 0.5, borderRadius: '1px',
+                    }} />
+                    <div className="pixel neon-text mb-4" style={{ fontSize: '0.6rem', letterSpacing: '1px', paddingLeft: '0.5rem' }}>
+                        ◈ SYSTEM_CATALOG
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                        {categories.map((cat, i) => (
+                            <motion.button
+                                key={cat}
+                                onClick={() => setActiveCategory(cat)}
+                                whileHover={{ x: 3, backgroundColor: 'rgba(57,255,20,0.04)' }}
+                                whileTap={{ scale: 0.98 }}
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0, transition: { delay: i * 0.03 } }}
+                                style={{
+                                    background: activeCategory === cat ? 'rgba(57,255,20,0.08)' : 'transparent',
+                                    border: 'none',
+                                    borderLeft: activeCategory === cat ? '2px solid var(--neon)' : '2px solid transparent',
+                                    borderRadius: '0 8px 8px 0',
+                                    padding: '0.6rem 0.75rem',
+                                    textAlign: 'left',
+                                    fontSize: '0.78rem',
+                                    color: activeCategory === cat ? 'var(--neon)' : 'var(--text-dim)',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                                    fontFamily: 'var(--font-code)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.6rem',
+                                    fontWeight: activeCategory === cat ? 700 : 400,
+                                }}
+                            >
+                                <span style={{ fontSize: '0.85rem', opacity: activeCategory === cat ? 1 : 0.4 }}>
+                                    {cat === 'All' ? '⚡' : '📂'}
+                                </span>
+                                <span style={{ flex: 1 }}>{cat}</span>
+                                {activeCategory === cat && (
+                                    <motion.span layoutId="active-dot" style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--neon)', boxShadow: '0 0 8px var(--neon)' }} />
+                                )}
+                            </motion.button>
+                        ))}
+                    </div>
+                </motion.div>
 
-                <div className="glass p-4 mt-8" style={{ fontSize: '0.78rem', color: 'var(--text-dim)', lineHeight: 1.6 }}>
-                    <div className="blue-text mb-2" style={{ fontWeight: 700 }}>PRO TIP</div>
+                <motion.div
+                    className="glass p-4"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
+                    style={{ fontSize: '0.75rem', color: 'var(--text-dim)', lineHeight: 1.6 }}
+                >
+                    <div className="blue-text mb-2" style={{ fontWeight: 700, fontSize: '0.65rem', letterSpacing: '0.04em' }}>💡 PRO TIP</div>
                     Click any command to copy it to your clipboard. Use search to filter specific flags.
-                </div>
+                </motion.div>
             </aside>
 
             {/* MAIN CONTENT Area */}
             <section>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
+                <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}
+                >
                     <div>
-                        <h1 className="pixel neon-text" style={{ fontSize: '1.35rem', margin: 0 }}>GIT_CHEATCODES</h1>
-                        <p className="dim-text" style={{ fontSize: '0.9rem', marginTop: '0.5rem' }}>
-                            Showing <span className="neon-text">{filteredData.reduce((acc, c) => acc + c.commands.length, 0)}</span> commands in <span className="blue-text">{activeCategory}</span>
+                        <h1 className="pixel neon-text" style={{ fontSize: '1.2rem', margin: 0 }}>GIT_CHEATCODES</h1>
+                        <p className="dim-text" style={{ fontSize: '0.82rem', marginTop: '0.4rem' }}>
+                            Showing <span className="neon-text" style={{ fontWeight: 700 }}>{filteredData.reduce((acc, c) => acc + c.commands.length, 0)}</span> commands in <span className="blue-text" style={{ fontWeight: 700 }}>{activeCategory}</span>
                         </p>
                     </div>
 
-                    <div style={{ position: 'relative', width: '350px' }}>
-                        <span style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--neon)', opacity: 0.6 }}>$ search_</span>
+                    <div style={{ position: 'relative', width: '320px' }}>
+                        <span style={{
+                            position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)',
+                            color: 'var(--neon)', opacity: 0.5, fontSize: '0.78rem', pointerEvents: 'none',
+                        }}>$ search_</span>
                         <input
                             type="text"
                             placeholder="Filter commands..."
@@ -97,22 +128,28 @@ export default function Reference() {
                             onChange={(e) => setSearchTerm(e.target.value)}
                             style={{
                                 width: '100%',
-                                background: 'rgba(0,0,0,0.4)',
-                                border: '1px solid var(--border)',
-                                borderRadius: '12px',
-                                padding: '0.8rem 1rem 0.8rem 5.5rem',
+                                background: 'rgba(0,0,0,0.3)',
+                                border: '1px solid rgba(57,255,20,0.12)',
+                                borderRadius: '10px',
+                                padding: '0.7rem 1rem 0.7rem 5rem',
                                 color: 'var(--text)',
                                 fontFamily: 'var(--font-code)',
-                                fontSize: '1rem',
+                                fontSize: '0.88rem',
                                 outline: 'none',
                                 transition: 'all 0.3s',
-                                backdropFilter: 'blur(8px)'
+                                backdropFilter: 'blur(8px)',
                             }}
-                            onFocus={(e) => e.target.style.borderColor = 'var(--neon)'}
-                            onBlur={(e) => e.target.style.borderColor = 'var(--border)'}
+                            onFocus={(e) => {
+                                e.target.style.borderColor = 'rgba(57,255,20,0.4)';
+                                e.target.style.boxShadow = '0 0 12px rgba(57,255,20,0.08)';
+                            }}
+                            onBlur={(e) => {
+                                e.target.style.borderColor = 'rgba(57,255,20,0.12)';
+                                e.target.style.boxShadow = 'none';
+                            }}
                         />
                     </div>
-                </div>
+                </motion.div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                     <AnimatePresence mode="popLayout">
